@@ -22,5 +22,14 @@ struct transaction {
 };
 
 struct transaction * mergeSortedArrays(struct transaction *A, int ALen, struct transaction *B, int BLen) {
-	return NULL;
+	struct transaction *new_head = NULL;
+	if (A == NULL)
+		return B;
+	else if (B == NULL)
+		return A;
+	else
+	{
+		//new_head = (struct transation *)malloc(sizeof(struct transaction)*(ALen + BLen));
+
+	}
 }

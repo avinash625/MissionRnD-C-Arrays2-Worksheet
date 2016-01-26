@@ -15,13 +15,77 @@ NOTES:
 */
 
 #include <iostream>
-
+#include<malloc.h>
 struct transaction {
 	int amount;
 	char date[11];
 	char description[20];
 };
-
+int number(char *date, int start, int length)
+{
+	int num = 0, k = 10, i = 1;
+	for (i = 0; i<length; i++, start++)
+	{
+		num = num *k + (date[start] - '0');
+	}
+	return num;
+}
+int same_date(char *date, char *stat_date)
+{
+	if (number(date, 6, 4) == number(stat_date, 6, 4))
+	{
+		if (number(date, 4, 2) == number(stat_date, 4, 2))
+		{
+			if (number(date, 0, 2) == number(stat_date, 0, 2))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;
+	}
+	else
+		return 0;
+}
+void copy(struct transaction *head, int count, struct transaction *A, int A_index)
+{
+	int i;
+	for (i = 0; A[A_index].date[i]; i++)
+		head[count].date[i] = A[A_index].date[i];
+	head[count].date[i] = '\0';
+	for (i = 0; A[A_index].description[i]; i++)
+		head[count].description[i] = A[A_index].description[i];
+	head[count].description[i] = '\0';
+	
+}
 struct transaction * sortedArraysCommonElements(struct transaction *A, int ALen, struct transaction *B, int BLen) {
-	return NULL;
+	int i = 0, j, count = 0, len = 2;
+	struct transaction *head=NULL;
+	if (A == NULL || B == NULL)
+		return NULL;
+	else
+	{
+		for (i = 0; i < ALen;i++)
+			for (j = 0; j < BLen; j++)
+			{
+				if (same_date(A[i].date, B[j].date))
+				{
+					if (count == 0)
+					{
+						head = (struct transaction *)malloc(sizeof(struct transaction *) * len);
+						
+					}
+					else if (count == len - 1)
+					{
+						head = (struct transaction *)realloc(head, sizeof(struct transaction *)*(len + 2));
+						len = len + 2;
+					}
+					head[count] = A[i];
+					count++;
+					break;
+
+				}
+			}
+	}
+	return head;
 }
