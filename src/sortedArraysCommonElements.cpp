@@ -59,8 +59,8 @@ void copy(struct transaction *head, int count, struct transaction *A, int A_inde
 	
 }
 struct transaction * sortedArraysCommonElements(struct transaction *A, int ALen, struct transaction *B, int BLen) {
-	int i = 0, j, count = 0, len = 2;
-	struct transaction *head=NULL;
+	int i = 0, j, count = 0, len = ALen+BLen;
+	struct transaction head[100];
 	if (A == NULL || B == NULL)
 		return NULL;
 	else
@@ -70,20 +70,9 @@ struct transaction * sortedArraysCommonElements(struct transaction *A, int ALen,
 			{
 				if (same_date(A[i].date, B[j].date))
 				{
-					if (count == 0)
-					{
-						head = (struct transaction *)malloc(sizeof(struct transaction *) * len);
-						
-					}
-					else if (count == len - 1)
-					{
-						head = (struct transaction *)realloc(head, sizeof(struct transaction *)*(len + 2));
-						len = len + 2;
-					}
 					head[count] = A[i];
 					count++;
 					break;
-
 				}
 			}
 	}
